@@ -1,17 +1,39 @@
 class Batch {
-  public getAvailabe(): number {
-    return this.quantity;
+  private allocatedOrder: Set<OrderLine>;
+  public getAvailabeQuantity(): number {
+    return (
+      this.quantity -
+      Array.from(this.allocatedOrder).reduce(
+        (sum, orderLine) => sum + orderLine.quantity,
+        0,
+      )
+    );
   }
 
   constructor(
     public id: string,
     public sku: string,
-    public quantity: number,
-  ) {}
+    private quantity: number,
+  ) {
+    this.allocatedOrder = new Set();
+  }
 
   public allocate(orderLine: OrderLine): void {
-    if (orderLine.quantity <= this.quantity) {
-      this.quantity -= orderLine.quantity;
+    if (this.canAllocate(orderLine)) {
+      this.allocatedOrder.add(orderLine);
+    }
+  }
+
+  public canAllocate(orderLine: OrderLine): boolean {
+    return (
+      this.sku == orderLine.sku &&
+      orderLine.quantity <= this.getAvailabeQuantity()
+    );
+  }
+
+  public deallocate(orderLine: OrderLine): void {
+    if (this.allocatedOrder.has(orderLine)) {
+      this.allocatedOrder.delete(orderLine);
     }
   }
 }
