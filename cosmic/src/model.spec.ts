@@ -1,9 +1,9 @@
-import { Batch, OrderLine } from './model';
+import { Batch, OrderLine, allocate } from './model';
 
 describe('Batch', () => {
   it('should create a new Batch object with the provided values', () => {
     const batch = new Batch('batch-001', 'SMALL-TABLE', 20);
-    expect(batch.id).toBe('batch-001');
+    expect(batch.ref).toBe('batch-001');
     expect(batch.sku).toBe('SMALL-TABLE');
     expect(batch.getAvailabeQuantity()).toBe(20);
   });
@@ -66,5 +66,31 @@ describe('Allocate and deallocate a order line', () => {
     expect(batch.getAvailabeQuantity()).toBe(15);
     batch.allocate(orderLine3);
     expect(batch.getAvailabeQuantity()).toBe(15);
+  });
+});
+
+describe('Allocate a order line from a list of batches', () => {
+  it('only need first bacth', () => {
+    const batch1 = new Batch('batch-001', 'SMALL-TABLE', 20);
+    const batch2 = new Batch('batch-002', 'SMALL-TABLE', 20);
+    const batch3 = new Batch('batch-003', 'SMALL-TABLE', 20);
+    const batches = [batch1, batch2, batch3];
+    const orderLine = new OrderLine('order-123', 'SMALL-TABLE', 2);
+    allocate(orderLine, batches);
+    expect(batch1.getAvailabeQuantity()).toBe(18);
+    expect(batch2.getAvailabeQuantity()).toBe(20);
+    expect(batch3.getAvailabeQuantity()).toBe(20);
+  });
+
+  it('span multiple batch', () => {
+    const batch1 = new Batch('batch-001', 'SMALL-TABLE', 20);
+    const batch2 = new Batch('batch-002', 'SMALL-TABLE', 20);
+    const batch3 = new Batch('batch-003', 'SMALL-TABLE', 20);
+    const batches = [batch1, batch2, batch3];
+    const orderLine = new OrderLine('order-123', 'SMALL-TABLE', 45);
+    allocate(orderLine, batches);
+    expect(batch1.getAvailabeQuantity()).toBe(20);
+    expect(batch2.getAvailabeQuantity()).toBe(20);
+    expect(batch3.getAvailabeQuantity()).toBe(20);
   });
 });

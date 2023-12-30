@@ -1,3 +1,13 @@
+function allocate(line: OrderLine, batches: Batch[]): string | undefined {
+  // sort batches by ref
+  for (const batch of batches) {
+    if (batch.canAllocate(line)) {
+      batch.allocate(line);
+      return batch.ref;
+    }
+  }
+}
+
 class Batch {
   private allocatedOrder: Set<OrderLine>;
   public getAvailabeQuantity(): number {
@@ -11,7 +21,7 @@ class Batch {
   }
 
   constructor(
-    public id: string,
+    public ref: string,
     public sku: string,
     private quantity: number,
   ) {
@@ -46,4 +56,4 @@ class OrderLine {
   ) {}
 }
 
-export { Batch, OrderLine };
+export { Batch, OrderLine, allocate };
