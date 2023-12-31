@@ -1,0 +1,12 @@
+version: "3.9"  # Specify a compatible version
+
+services:
+  db:
+    image: postgres:16  # Use the latest stable PostgreSQL image
+    restart: always  # Ensure automatic restarts
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: test
+    ports:
+      - "5432:5432"  # Expose the database port
