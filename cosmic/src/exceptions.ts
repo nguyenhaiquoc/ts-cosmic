@@ -1,4 +1,3 @@
-
 class OutOfStocksException extends Error {
   constructor(message: string) {
     super(message);
@@ -6,4 +5,4 @@ class OutOfStocksException extends Error {
   }
 }
 
-export {OutOfStocksException}
+export { OutOfStocksException };

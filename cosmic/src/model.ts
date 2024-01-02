@@ -1,4 +1,4 @@
-import { OutOfStocksException } from "./exceptions";
+import { OutOfStocksException } from './exceptions';
 
 function allocate(line: OrderLine, batches: Batch[]): string | undefined {
   // sort batches by ref
@@ -7,7 +7,7 @@ function allocate(line: OrderLine, batches: Batch[]): string | undefined {
       batch.allocate(line);
       return batch.ref;
     }
-    throw new OutOfStocksException(line.sku)
+    throw new OutOfStocksException(line.sku);
   }
 }
 

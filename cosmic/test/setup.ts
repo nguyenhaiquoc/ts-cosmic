@@ -1,11 +1,12 @@
-
 import { execSync } from 'child_process';
 
 // Function to start Docker Compose
 const startDockerCompose = () => {
   try {
     // start Docker Compose in detached mode, the files is in /devops/docker-compose.yml
-    execSync('docker-compose -f ./devops/docker-compose.yaml up -d', { stdio: 'inherit' });
+    execSync('docker-compose -f ./devops/docker-compose.yaml up -d', {
+      stdio: 'inherit',
+    });
     console.log('Docker Compose started successfully.');
   } catch (error) {
     console.error('Failed to start Docker Compose:', error);
