@@ -1,4 +1,5 @@
 import { Batch, OrderLine, allocate } from './model';
+import { OutOfStocksException } from "./exceptions";
 
 describe('Batch', () => {
   it('should create a new Batch object with the provided values', () => {
@@ -88,7 +89,11 @@ describe('Allocate a order line from a list of batches', () => {
     const batch3 = new Batch('batch-003', 'SMALL-TABLE', 20);
     const batches = [batch1, batch2, batch3];
     const orderLine = new OrderLine('order-123', 'SMALL-TABLE', 45);
-    allocate(orderLine, batches);
+    // test if allocate throw OutOfStocksException
+    const thrownError = expect(() => allocate(orderLine, batches)); 
+    thrownError.toThrow(OutOfStocksException);
+    thrownError.toThrow(orderLine.sku);
+
     expect(batch1.getAvailabeQuantity()).toBe(20);
     expect(batch2.getAvailabeQuantity()).toBe(20);
     expect(batch3.getAvailabeQuantity()).toBe(20);

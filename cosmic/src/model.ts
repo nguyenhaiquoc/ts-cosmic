@@ -1,3 +1,5 @@
+import { OutOfStocksException } from "./exceptions";
+
 function allocate(line: OrderLine, batches: Batch[]): string | undefined {
   // sort batches by ref
   for (const batch of batches) {
@@ -5,6 +7,7 @@ function allocate(line: OrderLine, batches: Batch[]): string | undefined {
       batch.allocate(line);
       return batch.ref;
     }
+    throw new OutOfStocksException(line.sku)
   }
 }
 
