@@ -1,4 +1,4 @@
-import { AppDataSource } from '../orm';
+import { AppDataSource } from '../../orm';
 
 beforeAll(async () => {
   await AppDataSource.initialize();

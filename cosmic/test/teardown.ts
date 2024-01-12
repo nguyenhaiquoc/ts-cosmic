@@ -1,6 +1,7 @@
+import { execSync } from 'child_process';
+
 // Function to stop Docker Compose
 const stopDockerCompose = () => {
-  /*
   try {
     execSync('docker-compose -f ./devops/docker-compose.yaml down', {
       stdio: 'inherit',
@@ -10,7 +11,6 @@ const stopDockerCompose = () => {
     console.error('Failed to stop Docker Compose:', error);
     process.exit(1);
   }
-  */
 };
 
 // Start Docker Compose before running tests

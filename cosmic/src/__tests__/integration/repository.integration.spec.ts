@@ -1,6 +1,6 @@
-import { AppDataSource } from '../orm';
-import { Batch as BatchModel, OrderLine as OrderLineModel } from '../model';
-import { TypeORMRepository } from '../repository';
+import { AppDataSource } from '../../orm';
+import { Batch as BatchModel, OrderLine as OrderLineModel } from '../../model';
+import { TypeORMRepository } from '../../repository';
 
 beforeAll(async () => {
   await AppDataSource.initialize();
