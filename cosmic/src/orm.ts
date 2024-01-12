@@ -1,4 +1,4 @@
-import { Column, DataSource, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, DataSource, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Entity } from 'typeorm';
 
 /* 
@@ -41,10 +41,10 @@ export class Allocation {
   @Column()
   createdAt: Date;
 
-  @OneToMany(() => Batch, (batch) => batch.id)
+  @ManyToOne(() => Batch, (batch) => batch.id)
   batch: Batch;
 
-  @OneToMany(() => OrderLine, (orderLine) => orderLine.id)
+  @ManyToOne(() => OrderLine, (orderLine) => orderLine.id)
   orderLine: OrderLine;
 }
 

@@ -1,5 +1,5 @@
-import { Batch, OrderLine, allocate } from './model';
-import { OutOfStocksException } from './exceptions';
+import { Batch, OrderLine, allocate } from '../model';
+import { OutOfStocksException } from '../exceptions';
 
 describe('Batch', () => {
   it('should create a new Batch object with the provided values', () => {
